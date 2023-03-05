@@ -1,10 +1,11 @@
 import "./sidebarFriends.css";
 
 export default function SidebarFriends({user}) {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <li className="sidebarFriend">
       <img
-        src={user.profilePicture}
+        src={PF + user.profilePicture}
         alt=""
         className="sidebarFriendImage"
       />

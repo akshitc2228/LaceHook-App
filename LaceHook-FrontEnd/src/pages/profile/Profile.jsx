@@ -5,6 +5,7 @@ import Rightbar from "../../components/rightbar/Rightbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 
 export default function Profile() {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <>
       <Navbar />
@@ -14,24 +15,27 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src="assets/posts/ada cover.jpg"
+                src={`${PF}posts/ada cover.jpg`}
                 alt=""
                 className="profileCoverImg"
               />
               <img
-                src="assets/Profile pics/ada prof pic.jpg"
+                src={`${PF}Profile pics/ada prof pic.jpg`}
                 alt=""
                 className="profileUserImg"
               />
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">Ada Wong</h4>
-              <span className="profileInfoDescription">If it ain't Wong, it's wrong</span>
+              <span className="profileInfoDescription">
+                If it ain't Wong, it's wrong
+              </span>
             </div>
           </div>
           <div className="profileRightBottom">
             <Feed />
-            <Rightbar profile/> {/* the word profile indicates that the component will be used in the profile page and not the default homepage */}
+            <Rightbar profile />{" "}
+            {/* the word profile indicates that the component will be used in the profile page and not the default homepage */}
           </div>
         </div>
       </div>

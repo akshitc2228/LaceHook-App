@@ -6,6 +6,7 @@
 }
 
 .friendImgContainer {
+    cursor: pointer;
     margin-right: 10px;
     position: relative;
 }
@@ -29,5 +30,6 @@
 }
 
 .rightbarFriendUsername {
+    cursor: pointer;
     font-weight: 600;
 }

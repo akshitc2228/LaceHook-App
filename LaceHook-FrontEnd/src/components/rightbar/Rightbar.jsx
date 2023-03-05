@@ -3,6 +3,7 @@ import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
 export default function Rightbar({ profile }) {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const HomeRightbar = () => {
     return (
       <>
@@ -44,27 +45,27 @@ export default function Rightbar({ profile }) {
         <h4 className="rightbarTitle">Followed friends</h4>
         <div className="followedUsersList">
           <div className="followedUser">
-            <img src="assets/Profile pics/safe_user prof pic.png" alt="" className="followedUserImg" />
+            <img src={`${PF}Profile pics/safe_user prof pic.png`} alt="" className="followedUserImg" />
             <span className="followedUserName">Shady guy</span>
           </div>
           <div className="followedUser">
-            <img src="assets/Profile pics/Leon prof pic.jpg" alt="" className="followedUserImg" />
+            <img src={`${PF}Profile pics/Leon prof pic.jpg`} alt="" className="followedUserImg" />
             <span className="followedUserName">Leon S. Kennedy</span>
           </div>
           <div className="followedUser">
-            <img src="assets/Profile pics/umbrella.jpg" alt="" className="followedUserImg" />
+            <img src={`${PF}Profile pics/umbrella.jpg`} alt="" className="followedUserImg" />
             <span className="followedUserName">Umbrella corp.</span>
           </div>
           <div className="followedUser">
-            <img src="assets/Profile pics/simmons.jpg" alt="" className="followedUserImg" />
+            <img src={`${PF}Profile pics/simmons.jpg`} alt="" className="followedUserImg" />
             <span className="followedUserName">Derek Simmons</span>
           </div>
           <div className="followedUser">
-            <img src="assets/Profile pics/1.jpg" alt="" className="followedUserImg" />
+            <img src={`${PF}Profile pics/1.jpg`} alt="" className="followedUserImg" />
             <span className="followedUserName">Chris Redfield</span>
           </div>
           <div className="followedUser">
-            <img src="assets/Profile pics/2.jpg" alt="" className="followedUserImg" />
+            <img src={`${PF}Profile pics/2.jpg`} alt="" className="followedUserImg" />
             <span className="followedUserName">Barry Burton</span>
           </div>
         </div>
