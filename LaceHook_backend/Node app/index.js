@@ -2,6 +2,8 @@
 //import all the modules needed for this web application
 const express = require("express"); //require() loads the modules much similar to the #include in philosophy
 const app = express();
+const cors = require("cors");
+app.use(cors());
 
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");

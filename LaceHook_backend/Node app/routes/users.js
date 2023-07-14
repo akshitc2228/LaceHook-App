@@ -80,20 +80,18 @@ router.put("/:id/follow", async (req, res) => {
 });
 
 //unfollow user
-
 router.put("/:id/unfollow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
     try {
-      const user = await User.findById(req.params.id); //who we are looking to follow
-      const currUser = await User.findById(req.body.userId); //the user themself
+      const user = await User.findById(req.params.id);
+      const currUser = await User.findById(req.body.userId); 
 
       if (user.followers.includes(req.body.userId)) {
-        //if who the user is trying to follow isn't already included in the user's followers
-        await user.updateOne({ $pull: { followers: req.body.userId } }); //Look into this syntax {$push : ...etc}. From my observation this is used when dealing with arrays?
+        await user.updateOne({ $pull: { followers: req.body.userId } }); 
         await currUser.updateOne({ $pull: { following: req.params.id } });
         res.status(200).json("Unfollowed from this user");
       } else {
-        res.status(403).json("You don't follow this user"); //I'd like to add the name of the user instead of just user. Look into this.
+        res.status(403).json("You don't follow this user");
       }
     } catch (err) {
       return res.status(500).json(err);

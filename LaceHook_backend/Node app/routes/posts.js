@@ -71,16 +71,17 @@ router.get("/:id", async (req, res) => {
 
 //get timeline (get all posts)
 //if you follow a user their posts will show in your timeline as well else just yours
-router.get("/timeline/all", async (req, res) => {
+//Use params with get requests
+router.get("/timeline/:userId", async (req, res) => {
   try {
-    const currUser = await User.findById(req.body.userId);
+    const currUser = await User.findById(req.params.userId);
     const userPosts = await Post.find({ userId: currUser._id }); //This is finding user posts by id
     const friendsPosts = await Promise.all(
       currUser.following.map((friendId) => {
         return Post.find({ userId: friendId });
       }) //used Promise.all here because we're using map
     ); //finding posts of every one the user is following
-    res.json(userPosts.concat(...friendsPosts));
+    res.status(200).json(userPosts.concat(...friendsPosts));
   } catch (err) {
     res.status(500).json(""+err); //!!! Error is not being formatted in postman without quotes. THIS APPLIES TO ALL
   }

@@ -5,7 +5,7 @@ export default function SidebarFriends({user}) {
   return (
     <li className="sidebarFriend">
       <img
-        src={PF + user.profilePicture}
+        src={PF+user.profilePicture}
         alt=""
         className="sidebarFriendImage"
       />
