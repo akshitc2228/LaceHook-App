@@ -3,6 +3,7 @@ import { MoreVert } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import axios from "axios"
 import { format } from "timeago.js"
+import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
@@ -12,7 +13,7 @@ export default function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async() => {
-      const res = await axios.get(`http://localhost:8080/users/${post.userId}`)
+      const res = await axios.get(`http://localhost:8080/users?userId=${post.userId}`)
       setUser(res.data)
     };
     fetchUser();
@@ -28,11 +29,13 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={user.profilePicture || PF+"Profile pics/unknown.jpg"} //can change unknown avatar type based on the gender of the user; For now adding default
-              alt=""
-              className="postCreatorImage"
-            />
+            <Link to={`/profile/${user.username}`}>
+              <img
+                src={PF+user.profilePicture || PF+"Profile pics/unknown.jpg"} //can change unknown avatar type based on the gender of the user; For now adding default
+                alt=""
+                className="postCreatorImage"
+              />
+            </Link>
             <span className="postUserName">
               {user.username}
             </span>{" "}

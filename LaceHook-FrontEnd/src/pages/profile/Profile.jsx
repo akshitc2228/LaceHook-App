@@ -3,9 +3,23 @@ import Feed from "../../components/feed/Feed";
 import Navbar from "../../components/navbar/Navbar";
 import Rightbar from "../../components/rightbar/Rightbar";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export default function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [user, setUser] = useState([]);
+  const username = useParams().username;
+
+  useEffect(() => {
+    const fetchUser = async() => {
+      const res = await axios.get(`http://localhost:8080/users?username=${username}`)
+      setUser(res.data)
+    };
+    fetchUser();
+  }, [username])
+
   return (
     <>
       <Navbar />
@@ -15,26 +29,26 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src={`${PF}posts/ada cover.jpg`}
+                src={PF+user.coverPicture || `${PF}/cover photos/no cover.jpg`}
                 alt=""
                 className="profileCoverImg"
               />
               <img
-                src={`${PF}Profile pics/ada prof pic.jpg`}
+                src={PF+user.profilePicture || `${PF}/Profile pics/unknown.jpg`}
                 alt=""
                 className="profileUserImg"
               />
             </div>
             <div className="profileInfo">
-              <h4 className="profileInfoName">Ada Wong</h4>
+              <h4 className="profileInfoName">{user.username}</h4>
               <span className="profileInfoDescription">
-                If it ain't Wong, it's wrong
+                {user.description}
               </span>
             </div>
           </div>
           <div className="profileRightBottom">
-            <Feed />
-            <Rightbar profile />{" "}
+            <Feed username={username}/>
+            <Rightbar user={user} />{" "}
             {/* the word profile indicates that the component will be used in the profile page and not the default homepage */}
           </div>
         </div>

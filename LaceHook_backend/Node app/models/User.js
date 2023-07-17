@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
 
     relationshipStatus : {
         type: Number,
-        enum: [1,2,3]
+        enum: [1,2,3] //1 2 3 will be single double clssified respectively
     }
 },
 {timestamps: true} //When set to true, the mongoose creates two fields as follows: createdAt: Date representing when the document was created. updatedAt: Date representing when this document was last updated.

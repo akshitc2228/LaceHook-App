@@ -11,19 +11,21 @@ import axios from "axios";
   },
 }); */
 
-export default function Feed() {
+export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get(
-        "http://localhost:8080/posts/timeline/636833cee53db900799bedd4"
-      );
+      const res = username
+        ? await axios.get("http://localhost:8080/posts/profile/" + username)
+        : await axios.get(
+            "http://localhost:8080/posts/timeline/636833cee53db900799bedd4"
+          );
       console.log(res);
       setPosts(res.data);
     };
     fetchPosts();
-  }, []);
+  }, [username]);
 
   return (
     <div className="feed">

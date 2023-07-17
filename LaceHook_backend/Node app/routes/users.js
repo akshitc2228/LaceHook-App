@@ -28,9 +28,13 @@ router.put("/:id", async (req, res) => {
 });
 
 //retrieve a user from db
-router.get("/:id", async (req, res) => {
+router.get("/", async (req, res) => {
+  const userId = req.query.userId;
+  const username = req.query.username;
   try {
-    const user = await User.findById(req.params.id);
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
     const { password, updatedAt, ...other } = user._doc;
     //Basically we are omitting the fields password and updatedAt.
     //Everything apart from those will be returned. this statement (line 34) is a bit unclear in terms of syntax; more research is required
@@ -84,10 +88,10 @@ router.put("/:id/unfollow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
     try {
       const user = await User.findById(req.params.id);
-      const currUser = await User.findById(req.body.userId); 
+      const currUser = await User.findById(req.body.userId);
 
       if (user.followers.includes(req.body.userId)) {
-        await user.updateOne({ $pull: { followers: req.body.userId } }); 
+        await user.updateOne({ $pull: { followers: req.body.userId } });
         await currUser.updateOne({ $pull: { following: req.params.id } });
         res.status(200).json("Unfollowed from this user");
       } else {
