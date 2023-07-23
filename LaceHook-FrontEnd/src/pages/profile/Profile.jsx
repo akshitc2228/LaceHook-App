@@ -29,12 +29,12 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src={PF+user.coverPicture || `${PF}/cover photos/no cover.jpg`}
+                src={user.profilePicture ? PF+user.coverPicture : `${PF}/cover photos/no cover.jpg`}
                 alt=""
                 className="profileCoverImg"
               />
               <img
-                src={PF+user.profilePicture || `${PF}/Profile pics/unknown.jpg`}
+                src={user.coverPicture ?  PF+user.profilePicture : `${PF}/Profile pics/unknown.jpg`}
                 alt=""
                 className="profileUserImg"
               />
@@ -48,7 +48,7 @@ export default function Profile() {
           </div>
           <div className="profileRightBottom">
             <Feed username={username}/>
-            <Rightbar user={user} />{" "}
+            <Rightbar user={user} />
             {/* the word profile indicates that the component will be used in the profile page and not the default homepage */}
           </div>
         </div>

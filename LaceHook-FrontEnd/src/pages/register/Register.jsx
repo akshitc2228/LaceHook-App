@@ -1,8 +1,7 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import "./register.css";
 import axios from "axios";
 import { loginCall } from "../../apiCalls";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Register() {
@@ -13,7 +12,7 @@ export default function Register() {
 
   const { dispatch } = useContext(AuthContext);
 
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     if (confirmPassword.current.value !== password.current.value) {
       confirmPassword.current.setCustomValidity("Passwords don't match");
@@ -30,8 +29,9 @@ export default function Register() {
           { email: email.current.value, password: password.current.value },
           dispatch
         );
+        console.log(dispatch);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
   };
@@ -76,7 +76,9 @@ export default function Register() {
               placeholder="Enter password again"
               className="loginInput"
             />
-            <button className="loginButton" type="submit">Sign-up</button>
+            <button className="loginButton" type="submit">
+              Sign-up
+            </button>
             <button className="registerButton">Already a member? Log in</button>
           </form>
         </div>

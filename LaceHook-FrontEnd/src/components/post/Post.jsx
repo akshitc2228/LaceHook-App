@@ -1,15 +1,23 @@
 import "./post.css";
 import { MoreVert } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios"
 import { format } from "timeago.js"
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
   const [liked, setLiked] = useState(false);
   const [user, setUser] = useState([]);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { user:currUser } = useContext(AuthContext); //the : is giving this user a nickname to distinguish between this reference and the other user reference; coudl try usig as in place of ':'
+
+  //to check if a post has been liked already
+  useEffect(() => {
+    setLiked(post.likes.includes(currUser._id))
+  }, [currUser._id, post.likes])
+  //bit confused about this one
 
   useEffect(() => {
     const fetchUser = async() => {
@@ -20,6 +28,11 @@ export default function Post({ post }) {
   }, [post.userId])
 
   const likeHandler = () => {
+    try {
+      axios.put(`http://localhost:8080/posts/${post._id}/like`, {userId: currUser._id})
+    } catch (error) {
+
+    }
     setLike(liked ? like - 1 : like + 1);
     setLiked(!liked);
   };
@@ -31,7 +44,7 @@ export default function Post({ post }) {
           <div className="postTopLeft">
             <Link to={`/profile/${user.username}`}>
               <img
-                src={PF+user.profilePicture || PF+"Profile pics/unknown.jpg"} //can change unknown avatar type based on the gender of the user; For now adding default
+                src={user.profilePicture ? PF+user.profilePicture : PF+"Profile pics/unknown.jpg"} //can change unknown avatar type based on the gender of the user; For now adding default
                 alt=""
                 className="postCreatorImage"
               />
@@ -48,7 +61,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCentre">
           <span className="postText">{post.description}</span>
-          <img src={PF+post.img} alt="" className="postImage" />
+          <img src={post.img} alt="" className="postImage" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

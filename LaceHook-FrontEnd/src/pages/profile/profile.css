@@ -15,6 +15,11 @@
     width: 100%;
     height: 250px;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.profileCoverImg:hover {
+    opacity: 0.8;
 }
 
 .profileUserImg {
@@ -28,6 +33,11 @@
     margin: auto;
     top: 150px;
     border: 3px solid white;
+    cursor: pointer;
+}
+
+.profileUserImg:hover {
+    opacity: 0.8;
 }
 
 .profileInfo {

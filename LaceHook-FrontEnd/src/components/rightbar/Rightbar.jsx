@@ -1,9 +1,25 @@
 import "./rightbar.css";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friends, setFriends] = useState([]);
+
+  useEffect(() => {
+    const getFriends = async() => {
+      try {
+        const friendsList = await axios.get(`http://localhost:8080/users/friends/${user._id}`);
+        setFriends(friendsList.data)
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    getFriends();
+  }, [user._id])
+
   const HomeRightbar = () => {
     return (
       <>
@@ -44,30 +60,16 @@ export default function Rightbar({ user }) {
         </div>
         <h4 className="rightbarTitle">Followed friends</h4>
         <div className="followedUsersList">
-          <div className="followedUser">
-            <img src={`${PF}Profile pics/safe_user prof pic.png`} alt="" className="followedUserImg" />
-            <span className="followedUserName">Shady guy</span>
-          </div>
-          <div className="followedUser">
-            <img src={`${PF}Profile pics/Leon prof pic.jpg`} alt="" className="followedUserImg" />
-            <span className="followedUserName">Leon S. Kennedy</span>
-          </div>
-          <div className="followedUser">
-            <img src={`${PF}Profile pics/umbrella.jpg`} alt="" className="followedUserImg" />
-            <span className="followedUserName">Umbrella corp.</span>
-          </div>
-          <div className="followedUser">
-            <img src={`${PF}Profile pics/simmons.jpg`} alt="" className="followedUserImg" />
-            <span className="followedUserName">Derek Simmons</span>
-          </div>
-          <div className="followedUser">
-            <img src={`${PF}Profile pics/1.jpg`} alt="" className="followedUserImg" />
-            <span className="followedUserName">Chris Redfield</span>
-          </div>
-          <div className="followedUser">
-            <img src={`${PF}Profile pics/2.jpg`} alt="" className="followedUserImg" />
-            <span className="followedUserName">Barry Burton</span>
-          </div>
+          {friends.map((friend) => (
+            <div className="followedUser">
+              <img
+                src={friend.profilePicture ? PF+friend.profilePicture : `${PF}Profile pics/unknown.jpg`}
+                alt=""
+                className="followedUserImg"
+              />
+              <span className="followedUserName">friend.username</span>
+            </div>
+          ))}
         </div>
       </>
     );
