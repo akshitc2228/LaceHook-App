@@ -1,6 +1,12 @@
 import { useContext, useRef, useState } from "react";
 import "./share.css";
-import { PermMedia, Label, Room, EmojiEmotions } from "@mui/icons-material";
+import {
+  PermMedia,
+  Label,
+  Room,
+  EmojiEmotions,
+  Cancel,
+} from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { uploadImage } from "../../utility functions/uploadImage";
@@ -50,7 +56,7 @@ export default function Share() {
 
       await axios.post("http://localhost:8080/posts", newPost);
       alert("Post uploaded successfully");
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       console.log(error);
       alert("Error uploading post");
@@ -65,12 +71,12 @@ export default function Share() {
             src={
               user.profilePicture
                 ? PF + user.profilePicture
-                : PF + "unknown.jpg"
+                : `${PF}/Profile pics/unknown.jpg`
             }
             alt=""
             className="profileImg"
           />
-          <input
+          <textarea
             type="text"
             ref={desc}
             placeholder={`What's on your mind ${user.username}?`}
@@ -78,6 +84,19 @@ export default function Share() {
           />
         </div>
         <hr className="shareHr" />
+        {file && (
+          <>
+            <Cancel className="cancelImgUpload" onClick={() => setFile(null)} />
+            <div className="shareImgPreviewContainer">
+              <img
+                src={URL.createObjectURL(file)}
+                alt=""
+                className="imgPreview"
+              ></img>
+            </div>
+          </>
+        )}
+
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">

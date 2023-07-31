@@ -18,9 +18,9 @@
     cursor: pointer;
 }
 
-.profileCoverImg:hover {
+/* .profileCoverImg:hover {
     opacity: 0.8;
-}
+} */
 
 .profileUserImg {
     width: 150px;
@@ -36,10 +36,10 @@
     cursor: pointer;
 }
 
-.profileUserImg:hover {
+/* .profileUserImg:hover {
     opacity: 0.8;
 }
-
+ */
 .profileInfo {
     display: flex;
     flex-direction: column;
@@ -53,6 +53,19 @@
 
 .profileInfoDescription {
     font-weight: 300;
+}
+
+.followUserButton {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 5px;
+    background-color: rgba(45, 95, 233, 0.918);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .profileRightBottom {

@@ -11,3 +11,21 @@ export const loginCall = async(userCredentials, dispatch) => {
 
     }
 }
+
+export const unfollowUserCall = async(userId, dispatch, currUserId) => {
+    try {
+        const res = await axios.put(`http://localhost:8080/users/${userId}/unfollow/`, {userId: currUserId})
+        dispatch({type: "UNFOLLOW", payload: res.data.userId})
+    } catch (error) {
+        dispatch({type: "UNFOLLOW_FAILED", payload: error})
+    }
+}
+
+export const followUserCall = async(userId, dispatch, currUserId) => {
+    try {
+        const res = await axios.put(`http://localhost:8080/users/${userId}/follow/`, {userId: currUserId})
+        dispatch({type: "FOLLOW", payload: res.data.userId})
+    } catch (error) {
+        dispatch({type: "FOLLOW_FAILED", payload: error})
+    }
+}

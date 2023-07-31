@@ -59,9 +59,8 @@
 
 .followedUsersList {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .followedUser {

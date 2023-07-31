@@ -34,15 +34,15 @@ export default function Navbar() {
         <div className="navbarIcons">
           <div className="navbarIconsItems">
             <Person />
-            <span className="navbarIconBadge">1</span>
+            {/* <span className="navbarIconBadge"></span> */}
           </div>
           <div className="navbarIconsItems">
             <Chat />
-            <span className="navbarIconBadge">2</span>
+            {/* <span className="navbarIconBadge"></span> */}
           </div>
           <div className="navbarIconsItems">
             <Notifications />
-            <span className="navbarIconBadge">3</span>
+            {/* <span className="navbarIconBadge"></span> */}
           </div>
         </div>
         <Link to={`/profile/${user.username}`}>

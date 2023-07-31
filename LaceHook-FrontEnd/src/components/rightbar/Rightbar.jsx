@@ -3,6 +3,7 @@ import { Users } from "../../dummyData";
 import Online from "../online/Online";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -18,7 +19,7 @@ export default function Rightbar({ user }) {
       }
     };
     getFriends();
-  }, [user._id])
+  }, [user])
 
   const HomeRightbar = () => {
     return (
@@ -61,14 +62,16 @@ export default function Rightbar({ user }) {
         <h4 className="rightbarTitle">Followed friends</h4>
         <div className="followedUsersList">
           {friends.map((friend) => (
-            <div className="followedUser">
-              <img
-                src={friend.profilePicture ? PF+friend.profilePicture : `${PF}Profile pics/unknown.jpg`}
-                alt=""
-                className="followedUserImg"
-              />
-              <span className="followedUserName">friend.username</span>
-            </div>
+            <Link to={`/profile/${friend.username}`} style={{textDecoration:"none"}}>
+              <div className="followedUser">
+                <img
+                  src={friend.profilePicture ? PF+friend.profilePicture : `${PF}Profile pics/unknown.jpg`}
+                  alt=""
+                  className="followedUserImg"
+                />
+                <span className="followedUserName">{friend.username}</span>
+              </div>
+            </Link>
           ))}
         </div>
       </>
